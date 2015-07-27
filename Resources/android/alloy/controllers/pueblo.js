@@ -43,7 +43,6 @@ function Controller() {
     $.__views.winPueblo = Ti.UI.createWindow({
         fullscreen: true,
         navBarHidden: true,
-        layout: "vertical",
         id: "winPueblo"
     });
     $.__views.winPueblo && $.addTopLevelView($.__views.winPueblo);
@@ -60,8 +59,7 @@ function Controller() {
         layout: "default",
         textAlign: "center",
         top: 0,
-        backgroundColor: "#ffbc0004",
-        backgroundImage: "/images/bg_publicidad.png",
+        backgroundColor: "transparent",
         id: "actionBar"
     });
     $.__views.puebloContenedor.add($.__views.actionBar);

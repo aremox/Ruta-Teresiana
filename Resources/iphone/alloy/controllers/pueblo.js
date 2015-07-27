@@ -41,6 +41,7 @@ function Controller() {
     var __defers = {};
     $.__views.winPueblo = Ti.UI.createWindow({
         fullscreen: true,
+        navBarHidden: true,
         layout: "vertical",
         statusBarStyle: Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT,
         id: "winPueblo"
@@ -48,27 +49,20 @@ function Controller() {
     $.__views.winPueblo && $.addTopLevelView($.__views.winPueblo);
     $.__views.puebloContenedor = Ti.UI.createView({
         fullscreen: true,
+        navBarHidden: true,
         layout: "vertical",
         statusBarStyle: Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT,
         id: "puebloContenedor"
     });
     $.__views.winPueblo.add($.__views.puebloContenedor);
-    $.__views.iosBar = Ti.UI.createView({
-        top: 0,
-        height: "18dp",
-        backgroundColor: "#33999999",
-        zIndex: 10,
-        id: "iosBar"
-    });
-    $.__views.puebloContenedor.add($.__views.iosBar);
     $.__views.actionBar = Ti.UI.createView({
         height: "44dp",
         color: "white",
         layout: "default",
         textAlign: "center",
         top: 0,
-        backgroundColor: "#ffbc0004",
         backgroundImage: "/images/bg_publicidad.png",
+        backgroundColor: "transparent",
         id: "actionBar"
     });
     $.__views.puebloContenedor.add($.__views.actionBar);

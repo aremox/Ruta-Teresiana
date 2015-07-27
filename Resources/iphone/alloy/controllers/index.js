@@ -26,19 +26,12 @@ function Controller() {
     var exports = {};
     $.__views.ventanaPrincipal = Ti.UI.createWindow({
         fullscreen: true,
+        navBarHidden: true,
         backgroundColor: "white",
         statusBarStyle: Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT,
         id: "ventanaPrincipal"
     });
     $.__views.ventanaPrincipal && $.addTopLevelView($.__views.ventanaPrincipal);
-    $.__views.iosBar = Ti.UI.createView({
-        top: 0,
-        height: "18dp",
-        backgroundColor: "#33999999",
-        zIndex: 10,
-        id: "iosBar"
-    });
-    $.__views.ventanaPrincipal.add($.__views.iosBar);
     exports.destroy = function() {};
     _.extend($, $.__views);
     var xGrid = 2;

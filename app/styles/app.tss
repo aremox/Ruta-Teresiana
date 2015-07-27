@@ -51,8 +51,6 @@ overrode the settings with other TSS, XML, or JS settings:
 "#actionBar":{
 	top:0,
 	height:"44dp",
-	backgroundImage: "/images/bg_publicidad.png",
-	backgroundColor: '#ffbc0004',
 	color: 'white',
 	layout: 'default'
 },
