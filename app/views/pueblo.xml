@@ -1,0 +1,25 @@
+<Alloy>
+	<Window class="container" id="winPueblo">
+		<View class="container" id="puebloContenedor">
+		<View id="actionBar" class="barrasDeAccion">
+			<ImageView id="botonMenu" onClick="cerrar" />
+			<Label id="textoMenu" />
+			<ImageView id="botonFavorito"  />
+			<ImageView id="botonRecargar"  />
+		</View>
+		<View class="barrasDeAccionSombra" />
+		<Label id="imagenPueblo"/>
+		<View id="actionBotones" class="barrasDeAccion">
+			<View class="bloque-1-2">
+			<ImageView id="chequearPueblo" class="chequear" onClick="localizar" />
+			</View>
+			<View class="bloque-1-2">
+			<ImageView id="compartirPueblo" class="compartir"  />
+			</View>
+		</View>
+		<View class="barrasDeAccionSombra" />
+		<ScrollView  id="vtextoPueblo" showVerticalScrollIndicator="true"><Label id="textoPueblo"/></ScrollView>
+		
+	</View>
+	</Window>
+</Alloy>

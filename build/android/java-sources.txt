@@ -1,0 +1,7 @@
+"/Users/ivan/Documents/Appcelerator_Studio_Workspace/Ruta Teresiana/build/android/gen/android/support/v7/appcompat/R.java"
+"/Users/ivan/Documents/Appcelerator_Studio_Workspace/Ruta Teresiana/build/android/gen/com/aremox/rutaTeresiana/ApplicationStylesheet.java"
+"/Users/ivan/Documents/Appcelerator_Studio_Workspace/Ruta Teresiana/build/android/gen/com/aremox/rutaTeresiana/R.java"
+"/Users/ivan/Documents/Appcelerator_Studio_Workspace/Ruta Teresiana/build/android/gen/com/aremox/rutaTeresiana/RutaTeresianaActivity.java"
+"/Users/ivan/Documents/Appcelerator_Studio_Workspace/Ruta Teresiana/build/android/gen/com/aremox/rutaTeresiana/RutaTeresianaAppInfo.java"
+"/Users/ivan/Documents/Appcelerator_Studio_Workspace/Ruta Teresiana/build/android/gen/com/aremox/rutaTeresiana/RutaTeresianaApplication.java"
+"/Users/ivan/Documents/Appcelerator_Studio_Workspace/Ruta Teresiana/build/android/gen/ti/modules/titanium/ui/R.java"

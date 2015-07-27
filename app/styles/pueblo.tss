@@ -1,0 +1,36 @@
+".container" : {
+  layout: 'vertical'
+},
+"#botonMenu": {
+	image: "/material/ic_chevron_left_white_48dp.png",
+	width: "40dp",
+	left: "6dp",
+	backgroundColor:"transparent"
+},
+"#actionBar": {
+	top:0,
+	height:"44dp",
+	backgroundColor: 'transparent',
+	color: 'white'
+},
+"#imagenPueblo": {
+	backgroundColor: "white",
+	color: 'white',
+	height: "30%",
+	width: "100%"
+},
+"#vtextoPueblo": {
+	backgroundColor: "white",
+	width: "100%",
+	color: "black",
+	zIndex: "-1"
+},
+"#textoPueblo":{
+	color: '#232323',
+	left: "12dp",
+	right: "12dp",
+	font: {
+		fontSize: '19dp',
+		fontFamily: 'Arial'
+	}
+}

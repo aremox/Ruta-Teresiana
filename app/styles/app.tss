@@ -1,0 +1,87 @@
+/*
+
+This is your global styles file. Selectors and rules you define
+here will be applied throughout your app. However, these rules
+have the lowest priority of any style settings.
+
+For more information, see the "Style Priorities" section of
+http://docs.appcelerator.com/titanium/latest/#!/guide/Alloy_Styles_and_Themes
+
+For example, the following would apply to all labels, windows,
+and text fields (depending on platform) in your app unless you
+overrode the settings with other TSS, XML, or JS settings:
+
+'Label[platform=android]': {
+	color: '#000' // all platforms except Android default to black
+}
+
+'Window': {
+	backgroundColor: '#fff' // white background instead of default transparent
+}
+
+'TextField[platform=android]': {
+	height: Ti.UI.SIZE //
+}
+[platform=ios]
+*/
+".container":{
+   fullscreen:true,
+   navBarHidden:true
+},
+".container[platform=ios]":{
+	statusBarStyle : Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT,
+   fullscreen:true
+},
+"#iosBar":{
+	top:0,
+	height:"18dp",
+	backgroundColor: '#33999999',
+	zIndex:10
+},
+".barrasDeAccion":{
+	height:"44dp",
+	color: 'white',
+	layout: 'horizontal',
+	textAlign: 'center'
+},
+".barrasDeAccionSombra":{
+	height:"1dp",
+	backgroundColor: '#33000000'
+},
+"#actionBar":{
+	top:0,
+	height:"44dp",
+	backgroundImage: "/images/bg_publicidad.png",
+	backgroundColor: '#ffbc0004',
+	color: 'white',
+	layout: 'default'
+},
+"#textoMenu": {
+	color: 'white',
+	font: {
+		fontFamily: 'Arial',
+		fontSize: '20dp',
+		fontWeight: 'bold'
+	},
+	shadowColor: '#66333333',
+	shadowRadius: 3,
+	shadowOffset: {
+		x: 2,
+		y: 2
+	},
+	textAlign: 'center',
+	left: '55dp',
+	right: '55dp'
+},
+".chequear":{
+	image: "/material/ic_radio_button_off_white_48dp.png",
+	height:"44dp"
+},
+".compartir":{
+	image: "/material/ic_share_white_48dp.png",
+	height:"44dp"
+},
+".bloque-1-2":{
+	textAlign: 'center',
+	width:"50%"
+}
