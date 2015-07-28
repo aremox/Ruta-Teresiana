@@ -12,15 +12,19 @@ function Controller() {
         $.winPueblo.close();
     }
     function localizar() {
-        if (Ti.Geolocation.locationServicesEnabled) {
-            Ti.Geolocation.purpose = "Get Current Location";
-            Ti.Geolocation.accuracy = Ti.Geolocation.ACCURACY_BEST;
-            Ti.Geolocation.distanceFilter = 0;
-            Ti.Geolocation.preferredProvider = Ti.Geolocation.PROVIDER_GPS;
-            Ti.Geolocation.addEventListener("location", function(e) {
-                e.error ? alert("Error: " + e.error) : Ti.API.info(e.coords);
-            });
-        } else alert("Please enable location services");
+        if (false === Titanium.Geolocation.locationServicesEnabled) {
+            Ti.API.error("error :gps no activado");
+            alert("error :gps no activado");
+        } else location.start({
+            action: function(responseLocation) {
+                Ti.API.warn(responseLocation.latitude + " " + responseLocation.longitude);
+                location.stop();
+                Ti.API.warn(location.distancia(data.gpsLat, data.gpsLon, responseLocation.latitude, responseLocation.longitude));
+            },
+            error: function(e) {
+                Ti.API.error(e);
+            }
+        });
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "pueblo";
@@ -42,7 +46,6 @@ function Controller() {
     $.__views.winPueblo = Ti.UI.createWindow({
         fullscreen: true,
         navBarHidden: true,
-        layout: "vertical",
         statusBarStyle: Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT,
         id: "winPueblo"
     });
@@ -50,8 +53,8 @@ function Controller() {
     $.__views.puebloContenedor = Ti.UI.createView({
         fullscreen: true,
         navBarHidden: true,
-        layout: "vertical",
         statusBarStyle: Titanium.UI.iPhone.StatusBar.LIGHT_CONTENT,
+        layout: "vertical",
         id: "puebloContenedor"
     });
     $.__views.winPueblo.add($.__views.puebloContenedor);
@@ -61,7 +64,6 @@ function Controller() {
         layout: "default",
         textAlign: "center",
         top: 0,
-        backgroundImage: "/images/bg_publicidad.png",
         backgroundColor: "transparent",
         id: "actionBar"
     });
@@ -177,6 +179,7 @@ function Controller() {
     $.__views.vtextoPueblo.add($.__views.textoPueblo);
     exports.destroy = function() {};
     _.extend($, $.__views);
+    var location = require("location");
     var args = arguments[0] || {};
     var data = [];
     data = args;

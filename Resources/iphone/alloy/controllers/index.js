@@ -44,8 +44,8 @@ function Controller() {
             id: "ÁVILA",
             descripcion: "descripcion",
             GPS: {
-                lat: "37.78583526611328",
-                lon: "-122.4064178466797"
+                lat: "40.6552873",
+                lon: "-4.7028309"
             }
         }, {
             id: "NARRILLOS DE SAN LEONARDO",

@@ -1,12 +1,14 @@
+var location = require('location');
 var args = arguments[0] || {};
 var data = [];
 data = args;
 $.textoMenu.setText(data.name);
 $.puebloContenedor.setBackgroundColor(data.color);
-$.textoPueblo.setText(data.descripcion + " " + data.gpsLat+" "+data.gpsLon);
-Titanium.API.info('data Value::' + data.descripcion + " " + data.gpsLat+" "+data.gpsLon);
+$.textoPueblo.setText(data.descripcion + " " + data.gpsLat + " " + data.gpsLon);
+Titanium.API.info('data Value::' + data.descripcion + " " + data.gpsLat + " " + data.gpsLon);
 $.imagenPueblo.setText("foto");
 function cerrar() {
+	
 	if (OS_ANDROID) {
 		var actividad = $.winPueblo.getActivity();
 		actividad.finish();
@@ -16,23 +18,25 @@ function cerrar() {
 }
 
 function localizar() {
-	//if (OS_IOS) {
-		if (Ti.Geolocation.locationServicesEnabled) {
-			Ti.Geolocation.purpose = 'Get Current Location';
-			Ti.Geolocation.accuracy = Ti.Geolocation.ACCURACY_BEST;
-			Ti.Geolocation.distanceFilter = 0;
-			Ti.Geolocation.preferredProvider = Ti.Geolocation.PROVIDER_GPS;
-			Ti.Geolocation.addEventListener('location', function(e) {
-				if (e.error) {
-					alert('Error: ' + e.error);
-				} else {
-					Ti.API.info(e.coords);
-				}
-			});
-		} else {
-			alert('Please enable location services');
-		}
-/*	}else{
-		alert('Please enable location services');
-	}*/
+	
+	if (Titanium.Geolocation.locationServicesEnabled === false)
+{
+	Ti.API.error('error :gps no activado');
+	alert('error :gps no activado');
+}
+else
+{
+		location.start({
+			action : function(responseLocation) {
+				// Do something after getting location.
+				Ti.API.warn(responseLocation.latitude+" "+responseLocation.longitude);
+				location.stop();
+				Ti.API.warn(location.distancia(data.gpsLat,data.gpsLon,responseLocation.latitude,responseLocation.longitude));
+			},
+			error : function(e) {
+				Ti.API.error(e);
+			}
+		});
+		
+	} 
 }
