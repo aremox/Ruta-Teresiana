@@ -9,7 +9,6 @@ function __processArg(obj, key) {
 
 function Controller() {
     function cerrar() {
-        location.stop();
         var actividad = $.winPueblo.getActivity();
         actividad.finish();
     }
@@ -20,6 +19,7 @@ function Controller() {
         } else location.start({
             action: function(responseLocation) {
                 Ti.API.warn(responseLocation.latitude + " " + responseLocation.longitude);
+                location.stop();
                 Ti.API.warn(location.distancia(data.gpsLat, data.gpsLon, responseLocation.latitude, responseLocation.longitude));
             },
             error: function(e) {

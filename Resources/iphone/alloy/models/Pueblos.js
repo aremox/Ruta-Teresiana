@@ -3,18 +3,21 @@ var Alloy = require("alloy"), _ = require("alloy/underscore")._, model, collecti
 exports.definition = {
     config: {
         columns: {
-            id: "int",
-            nombre: "string",
-            latitud: "string",
-            longitud: "string",
-            dia: "string",
-            hora: "string",
-            latitudchek: "string",
-            longitudchek: "string"
+            id: "INTEGER PRIMARY KEY AUTOINCREMENT",
+            nombre: "text",
+            descripcion: "text",
+            latitud: "text",
+            longitud: "text",
+            dia: "text",
+            hora: "text",
+            latitudchek: "text",
+            longitudchek: "text"
         },
         adapter: {
             type: "sql",
-            collection_name: "pueblos"
+            collection_name: "pueblos",
+            idAttribute: "id",
+            db_name: "BD"
         }
     },
     extendModel: function(Model) {

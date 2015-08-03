@@ -3,189 +3,217 @@ var yGrid = 0;
 var cellWidth = 0;
 var cellHeight = 0;
 var ySpacer = 0;
-var listaPueblos ={
-  "data": [
-    {
-      "id": "ÁVILA",
-        "descripcion": "descripcion",
-        "GPS": {"lat":"40.6552873",
-        		"lon":"-4.7028309"}
-    },
-    {
-    	"id": "NARRILLOS DE SAN LEONARDO",
-        "descripcion": "descripcion",
-        "GPS": {"lat":"37.78583526611328",
-        		"lon":"-122.4064178466797"}
-    },
-    {
-    	"id": "CARDEÑOSA",
-        "descripcion": "descripcion",
-        "GPS": {"lat":"37.78583526611328",
-        		"lon":"-122.4064178466797"}
-    },
-    {
-    	"id": "PEÑALBA DE ÁVILA",
-        "descripcion": "descripcion",
-        "GPS": {"lat":"37.78583526611328",
-        		"lon":"-122.4064178466797"}
-    },
-    {
-    	"id": "GOTARRENDURA",
-        "descripcion": "descripcion",
-        "GPS": {"lat":"37.78583526611328",
-        		"lon":"-122.4064178466797"}
-    },
-    {
-      "id": "ÁVILA",
-        "descripcion": "descripcion",
-        "GPS": {"lat":"37.78583526611328",
-        		"lon":"-122.4064178466797"}
-    },
-    {
-    	"id": "NARRILLOS DE SAN LEONARDO",
-        "descripcion": "descripcion",
-        "GPS": {"lat":"37.78583526611328",
-        		"lon":"-122.4064178466797"}
-    },
-    {
-    	"id": "CARDEÑOSA",
-        "descripcion": "descripcion",
-        "GPS": {"lat":"37.78583526611328",
-        		"lon":"-122.4064178466797"}
-    },
-    {
-    	"id": "PEÑALBA DE ÁVILA",
-        "descripcion": "descripcion",
-        "GPS": {"lat":"37.78583526611328",
-        		"lon":"-122.4064178466797"}
-    },
-    {
-    	"id": "GOTARRENDURA",
-        "descripcion": "descripcion",
-        "GPS": {"lat":"37.78583526611328",
-        		"lon":"-122.4064178466797"}
-    }
-  ]
-};
-//JSON.stringify
-//JSON.parse
-var pueblos = listaPueblos;
-//Ti.API.warn(pueblos.data.length);
-yGrid = pueblos.data.length / xGrid;
-if (OS_ANDROID) {
-	cellWidth = Math.round(Titanium.Platform.displayCaps.platformWidth / 1.35 / Ti.Platform.displayCaps.logicalDensityFactor / xGrid);
-	cellHeight = cellWidth;
-	ratio = Titanium.Platform.displayCaps.platformWidth / Titanium.Platform.displayCaps.dpi;
-	ancho = Titanium.Platform.displayCaps.platformWidth;
-	espacio = ((Titanium.Platform.displayCaps.platformWidth - (xGrid * cellWidth) * Ti.Platform.displayCaps.logicalDensityFactor) / (xGrid + 1)) / Ti.Platform.displayCaps.logicalDensityFactor;
-	var xSpacer = Math.round(espacio);
-	ySpacer = xSpacer / 2;
-	Ti.API.info("xSpacer:" + xSpacer + " ySpacer:" + ySpacer + " Ancho:" + ancho + " Ratio:" + ratio + " cellWidth:" + cellWidth + " cellHeight:" + cellHeight);
-
-} else {
-	cellWidth = Math.round(Titanium.Platform.displayCaps.platformWidth / 1.35 / xGrid);
-	cellHeight = cellWidth;
-	espacio = ((Titanium.Platform.displayCaps.platformWidth - (xGrid * cellWidth)) / (xGrid + 1));
-	var xSpacer = Math.round(espacio);
-	ySpacer = xSpacer / 2;
-	Ti.API.info("xSpacer:" + xSpacer + " ySpacer:" + ySpacer + " Ancho:" + Titanium.Platform.displayCaps.platformWidth + " Ratio:" + Ti.Platform.displayCaps.logicalDensityFactor + " cellWidth:" + cellWidth + " cellHeight:" + cellHeight);
-
-}
-
 var tableData = [];
-
 var colorSet = ["#D44646", "#46D463", "#46D4BE", "#C2D446", "#D446D5", "#4575D5", "#E39127", "#879181", "#E291D4"];
-
 var colorSetIndex = 0;
 var cellIndex = 0;
 var puebloIndex = 0;
-//
+var pueblos = {};
+var dataDB = {
+	"data" : []
+};
+function asignarJson(callback) {
+	var db = Ti.Database.open('BD');
+	var pueblosRS = db.execute('SELECT * FROM pueblos');
+	while (pueblosRS.isValidRow()) {
+		var id = pueblosRS.fieldByName('id');
+		var nombre = pueblosRS.fieldByName('nombre');
+		var descripcion = pueblosRS.fieldByName('descripcion');
+		var latitud = pueblosRS.fieldByName('latitud');
+		var longitud = pueblosRS.fieldByName('longitud');
+		var dia = pueblosRS.fieldByName('dia');
+		var hora = pueblosRS.fieldByName('hora');
+		var latitudchek = pueblosRS.fieldByName('latitudchek');
+		var longitudchek = pueblosRS.fieldByName('longitudchek');
+		dataDB.data = dataDB.data.concat({
+			id : id,
+			nombre : nombre,
+			descripcion : descripcion,
+			GPS : {
+				lat : latitud,
+				lon : longitud
+			},
+			dia : dia,
+			hora : hora,
+			latitudchek : latitudchek,
+			longitudchek : longitudchek
+		});
+		pueblosRS.next();
+	}
+	db.close();
+	pueblos = dataDB;
+	Ti.API.info("DATOSDB: " + JSON.stringify(pueblos));
+	callback();
+}
 
-for (var y = 0; y < yGrid; y++) {
-	var thisRow = Ti.UI.createTableViewRow({
-		className : "grid",
-		layout : "horizontal",
-		height : cellHeight + (2 * ySpacer),
+asignarJson(function() {
+
+	pintarTabla();
+});
+
+function pintarTabla() {
+	yGrid = pueblos.data.length / xGrid;
+	if (OS_ANDROID) {
+		cellWidth = Math.round(Titanium.Platform.displayCaps.platformWidth / 1.05 / Ti.Platform.displayCaps.logicalDensityFactor / xGrid);
+		cellHeight = cellWidth;
+		ratio = Titanium.Platform.displayCaps.platformWidth / Titanium.Platform.displayCaps.dpi;
+		ancho = Titanium.Platform.displayCaps.platformWidth;
+		espacio = ((Titanium.Platform.displayCaps.platformWidth - (xGrid * cellWidth) * Ti.Platform.displayCaps.logicalDensityFactor) / (xGrid + 1)) / Ti.Platform.displayCaps.logicalDensityFactor;
+		var xSpacer = Math.round(espacio);
+		ySpacer = xSpacer / 2;
+		Ti.API.info("xSpacer:" + xSpacer + " ySpacer:" + ySpacer + " Ancho:" + ancho + " Ratio:" + ratio + " cellWidth:" + cellWidth + " cellHeight:" + cellHeight);
+
+	} else {
+		cellWidth = Math.round(Titanium.Platform.displayCaps.platformWidth / 1.05 / xGrid);
+		cellHeight = cellWidth;
+		espacio = ((Titanium.Platform.displayCaps.platformWidth - (xGrid * cellWidth)) / (xGrid + 1));
+		var xSpacer = Math.round(espacio);
+		ySpacer = xSpacer / 2;
+		Ti.API.info("xSpacer:" + xSpacer + " ySpacer:" + ySpacer + " Ancho:" + Titanium.Platform.displayCaps.platformWidth + " Ratio:" + Ti.Platform.displayCaps.logicalDensityFactor + " cellWidth:" + cellWidth + " cellHeight:" + cellHeight);
+
+	}
+
+	//
+
+	for (var y = 0; y < yGrid; y++) {
+		var thisRow = Ti.UI.createTableViewRow({
+			className : "grid",
+			layout : "horizontal",
+			height : cellHeight + (2 * ySpacer),
+			selectedBackgroundColor : "Transparent",
+			backgroundSelectedColor : "Transparent",
+			backgroundColor : "Transparent",
+			selectionStyle : Titanium.UI.iPhone.TableViewCellSelectionStyle.NONE,
+			bubbleParent : false,
+			touchEnabled : false
+		});
+		//thisRow.setTouchEnabled(true);
+		// backgroundColor : colorSet[colorSetIndex],
+		for (var x = 0; x < xGrid; x++) {
+			if (puebloIndex < pueblos.data.length) {
+				var thisViewContenedor = Ti.UI.createView({
+					objName : "contenedor-grid-view",
+					backgroundColor : "Transparent",
+					left : xSpacer,
+					height : cellHeight,
+					width : cellWidth,
+					top : ySpacer
+				});
+				var thisView = Ti.UI.createView({
+					objName : "grid-view",
+					objIndex : puebloIndex.toString(),
+					objNombre : pueblos.data[puebloIndex].nombre,
+					objDescripcion : pueblos.data[puebloIndex].descripcion,
+					objGPSlat : pueblos.data[puebloIndex].GPS.lat,
+					objGPSlon : pueblos.data[puebloIndex].GPS.lon,
+					backgroundColor : colorSet[colorSetIndex],
+					selectedBackgroundColor : colorSet[colorSetIndex],
+					backgroundSelectedColor : colorSet[colorSetIndex],
+					left : xSpacer,
+					height : cellHeight,
+					width : cellWidth,
+					top : ySpacer,
+					
+					touchEnabled : true
+				});
+//borderRadius:5,
+				var thisViewShadow = Ti.UI.createView({
+					objName : "shadow-grid-view",
+					backgroundGradient : {
+						type : 'linear',
+						startPoint : {
+							x : '100%',
+							y : '100%'
+						},
+						endPoint : {
+							x : '100%',
+							y : '93%'
+						},
+						colors : [{
+							color : "Transparent",
+							offset : 0.0
+						}, {
+							color : "#33000000",
+							offset : 1.0
+						}],
+					},
+					top : 3,
+					left : 0,
+					height : cellHeight - 3,
+					width : cellWidth ,
+					touchEnabled : true,
+					zIndex : "-1",
+					borderRadius:5
+				});
+
+				if (puebloIndex < pueblos.data.length) {
+					var thisLabel = Ti.UI.createLabel({
+						color : "white",
+						font : {
+							fontWeight : 'bold'
+						},
+						textAlign : Ti.UI.TEXT_ALIGNMENT_CENTER,
+						text : pueblos.data[puebloIndex].nombre,
+						touchEnabled : false
+					});
+					thisView.add(thisLabel);
+					thisView.addEventListener("click", function(e) {
+						if (e.source.objName) {
+							Ti.API.info("---> " + e.source.objNombre + " " + e.source.objName + e.source.objIndex + " was clicked!");
+						}
+						controllerPueblo = Alloy.createController('pueblo', {
+							name : e.source.objNombre,
+							color : e.source.backgroundColor,
+							descripcion : e.source.objDescripcion,
+							gpsLat : e.source.objGPSlat,
+							gpsLon : e.source.objGPSlon,
+							token : '',
+							tokenValue : ''
+						});
+						var winPueblo = controllerPueblo.getView();
+						// controllerPueblo.setTitulo(e.source.objNombre);
+						winPueblo.open();
+					});
+					thisViewContenedor.add(thisView);
+					thisViewContenedor.add(thisViewShadow);
+					thisRow.add(thisView);
+				}
+			}
+			cellIndex++;
+			colorSetIndex++;
+			puebloIndex++;
+
+			if (colorSetIndex === colorSet.length) {
+				colorSetIndex = 0;
+			}
+		}
+		tableData.push(thisRow);
+	}
+	var tableview = Ti.UI.createTableView({
+		data : tableData,
+		separatorColor : 'transparent',
+		backgroundColor : 'transparent',
 		selectedBackgroundColor : "Transparent",
 		backgroundSelectedColor : "Transparent",
-		backgroundColor : "Transparent",
-		touchEnabled : true
+		touchEnabled : true,
+		bubbleParent : false,
+		top : 4
 	});
-	thisRow.setTouchEnabled(true);
-	for (var x = 0; x < xGrid; x++) {
-		var thisView = Ti.UI.createView({
-			objName : "grid-view",
-			objIndex : puebloIndex.toString(),
-			objNombre : pueblos.data[puebloIndex].id,
-			objDescripcion : pueblos.data[puebloIndex].descripcion,
-			objGPSlat : pueblos.data[puebloIndex].GPS.lat,
-			objGPSlon : pueblos.data[puebloIndex].GPS.lon,
-			backgroundColor : colorSet[colorSetIndex],
-			selectedBackgroundColor : colorSet[colorSetIndex],
-			backgroundSelectedColor : colorSet[colorSetIndex],
-			left : xSpacer,
-			height : cellHeight,
-			width : cellWidth,
-			top: ySpacer
-		});
-	
-		if (puebloIndex < pueblos.data.length) {
-			var thisLabel = Ti.UI.createLabel({
-				color : "white",
-				font : {
-					fontWeight : 'bold'
-				},
-				textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
-				text : pueblos.data[puebloIndex].id,
-				touchEnabled : false
-			});
-			thisView.add(thisLabel);
-			thisRow.add(thisView);
-		}
-		cellIndex++;
-		colorSetIndex++;
-		puebloIndex++;
-
-		if (colorSetIndex === colorSet.length) {
-			colorSetIndex = 0;
-		}
+	// backgroundImage: "default.png",
+	//	touchEnabled : false,
+	//	bubbleParent : false,
+	if (OS_IOS) {
+		tableview.setSeparatorStyle(0);
 	}
-	tableData.push(thisRow);
-}
-var tableview = Ti.UI.createTableView({
-	data : tableData,
-	separatorColor : 'transparent',
-	backgroundColor : 'white',
-	touchEnabled : true,
-	bubbleParent : false,
-	top: 4
-});
+	tableview.addEventListener("click", function(e) {
 
-if (OS_IOS) {
-	tableview.setSeparatorStyle(0);
-}
+		Ti.API.info("Se hace clic sobre la fila");
+	});
 
-tableview.addEventListener("click", function(e) {
-	if (e.source.objName) {
-		Ti.API.info("---> "+e.source.objNombre+" " + e.source.objName + e.source.objIndex + " was clicked!");
-	}
-	controllerPueblo = Alloy.createController('pueblo',{
-    name: e.source.objNombre,
-    color: e.source.backgroundColor,
-    descripcion: e.source.objDescripcion,
-    gpsLat: e.source.objGPSlat,
-    gpsLon: e.source.objGPSlon,
-    token: '',
-    tokenValue: ''
-});
-	var winPueblo = controllerPueblo.getView();
-	// controllerPueblo.setTitulo(e.source.objNombre);
-	 winPueblo.open();
-});
-
-var win = Ti.UI.createWindow({
-	backgroundColor : "white",
-	title : "Main Window"
-});
-$.ventanaPrincipal.add(tableview);
-$.ventanaPrincipal.open();
+	var win = Ti.UI.createWindow({
+		backgroundColor : "white",
+		title : "Main Window"
+	});
+	$.ventanaPrincipal.add(tableview);
+	$.ventanaPrincipal.open();
+};
