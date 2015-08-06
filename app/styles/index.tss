@@ -1,4 +1,13 @@
-".container": {
+"#ventanaPrincipal": {
 
 	backgroundImage: "/images/default.png"
+}
+"#tableview": {
+	separatorColor : 'transparent',
+		backgroundColor : 'transparent',
+		selectedBackgroundColor : "Transparent",
+		backgroundSelectedColor : "Transparent",
+		touchEnabled : true,
+		bubbleParent : false,
+		top : 4
 }

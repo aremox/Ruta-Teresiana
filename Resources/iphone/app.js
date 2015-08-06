@@ -25,7 +25,7 @@ if (true == Ti.App.Properties.getBool("primer", true)) {
     db.execute("INSERT INTO pueblos (nombre,descripcion,latitud,longitud) VALUES (?,?,?,?)", "GARCIHERNANDEZ", "descripcion", "40.8487924", "-5.4203036");
     db.execute("INSERT INTO pueblos (nombre,descripcion,latitud,longitud) VALUES (?,?,?,?)", "ALBA DE TORMES", "descripcion", "40.8487924", "-5.4203036");
     db.execute("COMMIT");
-    Ti.App.Properties.setBool("primer", true);
+    Ti.App.Properties.setBool("primer", false);
 }
 
 db.close();

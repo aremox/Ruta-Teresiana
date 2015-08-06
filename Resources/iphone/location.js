@@ -43,6 +43,10 @@ function start(obj) {
     }).show();
     callback = obj.action;
     error = obj.error || function() {};
+    timeout = setTimeout(function() {
+        error("Timeout");
+        stop();
+    }, 25e3);
     Titanium.Geolocation.distanceFilter = 10;
     Titanium.Geolocation.accuracy = Titanium.Geolocation.ACCURACY_BEST;
     Ti.Geolocation.preferredProvider = Ti.Geolocation.PROVIDER_GPS;

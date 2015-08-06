@@ -62,11 +62,11 @@ function start(obj) {
 	function() {
 	};
 
-	/*timeout = setTimeout(function() {
+	timeout = setTimeout(function() {
 		error("Timeout");
 		stop();
 	}, 25000);
-*/
+
 	Titanium.Geolocation.distanceFilter = 10;
 
 	Titanium.Geolocation.accuracy = Titanium.Geolocation.ACCURACY_BEST;

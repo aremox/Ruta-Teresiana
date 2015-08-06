@@ -18,14 +18,41 @@ function Controller() {
             alert("error :gps no activado");
         } else location.start({
             action: function(responseLocation) {
-                Ti.API.warn(responseLocation.latitude + " " + responseLocation.longitude);
+                Ti.API.info(responseLocation.latitude + " " + responseLocation.longitude);
                 location.stop();
-                Ti.API.warn(location.distancia(data.gpsLat, data.gpsLon, responseLocation.latitude, responseLocation.longitude));
+                compararGPS(responseLocation.latitude, responseLocation.longitude, chequearTeresiana);
             },
             error: function(e) {
                 Ti.API.error(e);
+                alert("Fallo obteniendo localización");
             }
         });
+    }
+    function compararGPS(latitude, longitude, callbak) {
+        distancis = location.distancia(data.gpsLat, data.gpsLon, latitude, longitude);
+        if (distancis >= .3) {
+            Ti.API.info("menor de 300 metros: " + distancis);
+            Ti.API.info(data.gpsLat + " " + data.gpsLon + " " + latitude + " " + longitude);
+            callbak(latitude, longitude);
+        } else Ti.API.info("mas de 300 metros: " + distancis);
+    }
+    function chequearTeresiana() {
+        var db = Ti.Database.open("BD");
+        var fecha = new Date(Date.now());
+        var d = getFormattedDate(fecha);
+        var h = fecha.getHours() + ":" + fecha.getMinutes() + ":" + fecha.getSeconds();
+        Ti.API.info("Id: " + data.id + " dia: " + d + " hora: " + h);
+        db.execute("UPDATE pueblos SET dia=?,hora=? WHERE id=?", d, h, data.id);
+        db.close();
+        Ti.App.fireEvent("app:updateTables");
+    }
+    function getFormattedDate(date) {
+        var year = date.getFullYear();
+        var month = (1 + date.getMonth()).toString();
+        month = month.length > 1 ? month : "0" + month;
+        var day = date.getDate().toString();
+        day = day.length > 1 ? day : "0" + day;
+        return year + month + day;
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "pueblo";
@@ -184,7 +211,7 @@ function Controller() {
     data = args;
     $.textoMenu.setText(data.name);
     $.puebloContenedor.setBackgroundColor(data.color);
-    $.textoPueblo.setText(data.descripcion + " " + data.gpsLat + " " + data.gpsLon);
+    $.textoPueblo.setText(data.id + " " + data.descripcion + " " + data.gpsLat + " " + data.gpsLon);
     Titanium.API.info("data Value::" + data.descripcion + " " + data.gpsLat + " " + data.gpsLon);
     $.imagenPueblo.setText("foto");
     __defers["$.__views.botonMenu!click!cerrar"] && $.__views.botonMenu.addEventListener("click", cerrar);
