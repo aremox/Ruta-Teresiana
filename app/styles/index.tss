@@ -1,13 +1,13 @@
-"#ventanaPrincipal": {
+"#drawer": {
+    openDrawerGestureMode: "OPEN_MODE_ALL",
+    closeDrawerGestureMode: "CLOSE_MODE_MARGIN",
+    leftDrawerWidth: 200,
+    rightDrawerWidth: 200,
 
-	backgroundImage: "/images/default.png"
-}
-"#tableview": {
-	separatorColor : 'transparent',
-		backgroundColor : 'transparent',
-		selectedBackgroundColor : "Transparent",
-		backgroundSelectedColor : "Transparent",
-		touchEnabled : true,
-		bubbleParent : false,
-		top : 4
+    // use DrawerLayout for Android
+    drawerLayout: true
+},
+
+"Window": {
+    backgroundColor: 'white'
 }

@@ -1,0 +1,5 @@
+<Alloy>
+	<View class="container" id="ventanaPrincipal" >
+		<TableView id="tableview"></TableView>
+	</View>
+</Alloy>

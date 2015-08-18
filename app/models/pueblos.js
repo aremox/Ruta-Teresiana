@@ -10,6 +10,7 @@ exports.definition = {
 		    "hora": "text",
 		    "latitudchek": "text",
 		    "longitudchek": "text",
+		    "imagen":"text"
 		},
 		adapter: {
 			type: "sql",

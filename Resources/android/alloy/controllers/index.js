@@ -8,179 +8,28 @@ function __processArg(obj, key) {
 }
 
 function Controller() {
-    function asignarJson(callback) {
-        var dataDB = {
-            data: []
-        };
-        var db = Ti.Database.open("BD");
-        var pueblosRS = db.execute("SELECT * FROM pueblos");
-        while (pueblosRS.isValidRow()) {
-            var id = pueblosRS.fieldByName("id");
-            var nombre = pueblosRS.fieldByName("nombre");
-            var descripcion = pueblosRS.fieldByName("descripcion");
-            var latitud = pueblosRS.fieldByName("latitud");
-            var longitud = pueblosRS.fieldByName("longitud");
-            var dia = pueblosRS.fieldByName("dia");
-            var hora = pueblosRS.fieldByName("hora");
-            var latitudchek = pueblosRS.fieldByName("latitudchek");
-            var longitudchek = pueblosRS.fieldByName("longitudchek");
-            dataDB.data = dataDB.data.concat({
-                id: id,
-                nombre: nombre,
-                descripcion: descripcion,
-                GPS: {
-                    lat: latitud,
-                    lon: longitud
-                },
-                dia: dia,
-                hora: hora,
-                latitudchek: latitudchek,
-                longitudchek: longitudchek
-            });
-            pueblosRS.next();
+    function borrarHijos(callback) {
+        for (var i = $.centroW.children.length - 1; i >= 0; i--) {
+            Ti.API.info($.centroW.children[i].id + " (" + i + ")");
+            Ti.API.info("Se elimina: " + $.centroW.children[i].id + " (" + i + ")");
+            $.centroW.remove($.centroW.children[i]);
         }
-        db.close();
-        pueblos = dataDB;
-        Ti.API.info("DATOSDB: " + JSON.stringify(pueblos));
         callback();
     }
-    function pintarTabla() {
-        var tableData = [];
-        var colorSetIndex = 0;
-        var cellIndex = 0;
-        var puebloIndex = 0;
-        yGrid = pueblos.data.length / xGrid;
-        var xSpacer;
-        cellWidth = Math.round(Titanium.Platform.displayCaps.platformWidth / 1.05 / Ti.Platform.displayCaps.logicalDensityFactor / xGrid);
-        cellHeight = cellWidth;
-        ratio = Titanium.Platform.displayCaps.platformWidth / Titanium.Platform.displayCaps.dpi;
-        ancho = Titanium.Platform.displayCaps.platformWidth;
-        espacio = (Titanium.Platform.displayCaps.platformWidth - xGrid * cellWidth * Ti.Platform.displayCaps.logicalDensityFactor) / (xGrid + 1) / Ti.Platform.displayCaps.logicalDensityFactor;
-        var xSpacer = Math.round(espacio);
-        ySpacer = xSpacer / 2;
-        Ti.API.info("xSpacer:" + xSpacer + " ySpacer:" + ySpacer + " Ancho:" + ancho + " Ratio:" + ratio + " cellWidth:" + cellWidth + " cellHeight:" + cellHeight);
-        for (var y = 0; yGrid > y; y++) {
-            var thisRow = Ti.UI.createTableViewRow({
-                className: "grid",
-                layout: "horizontal",
-                height: cellHeight + 2 * ySpacer,
-                backgroundSelectedColor: "Transparent",
-                backgroundColor: "Transparent",
-                bubbleParent: false,
-                touchEnabled: false
-            });
-            for (var x = 0; xGrid > x; x++) {
-                if (puebloIndex < pueblos.data.length) {
-                    var thisViewContenedor = Ti.UI.createView({
-                        objName: "contenedor-grid-view",
-                        backgroundColor: "Transparent",
-                        left: xSpacer,
-                        height: cellHeight,
-                        width: cellWidth,
-                        top: ySpacer
-                    });
-                    var thisView = Ti.UI.createView({
-                        objName: "grid-view",
-                        objIndex: pueblos.data[puebloIndex].id,
-                        objNombre: pueblos.data[puebloIndex].nombre,
-                        objDescripcion: pueblos.data[puebloIndex].descripcion,
-                        objGPSlat: pueblos.data[puebloIndex].GPS.lat,
-                        objGPSlon: pueblos.data[puebloIndex].GPS.lon,
-                        backgroundColor: colorSet[colorSetIndex],
-                        backgroundSelectedColor: colorSet[colorSetIndex],
-                        left: 0,
-                        height: cellHeight - 2,
-                        width: cellWidth - 2,
-                        top: 2,
-                        touchEnabled: true
-                    });
-                    var thisViewShadow = Ti.UI.createView({
-                        objName: "shadow-grid-view",
-                        backgroundGradient: {
-                            type: "linear",
-                            startPoint: {
-                                x: "80%",
-                                y: "20%"
-                            },
-                            endPoint: {
-                                x: "100%",
-                                y: "0%"
-                            },
-                            colors: [ {
-                                color: "#00ffffff",
-                                offset: 0
-                            }, {
-                                color: "#ff000000",
-                                offset: 0
-                            }, {
-                                color: "#33000000",
-                                offset: 1
-                            } ]
-                        },
-                        top: 0,
-                        left: 0,
-                        height: cellHeight,
-                        width: cellWidth,
-                        touchEnabled: false,
-                        zIndex: "1"
-                    });
-                    var image = Ti.UI.createImageView({
-                        right: 0,
-                        top: 0,
-                        height: "25%",
-                        width: "25%",
-                        image: "green-check.png",
-                        touchEnabled: false
-                    });
-                    if (puebloIndex < pueblos.data.length) {
-                        var thisLabel = Ti.UI.createLabel({
-                            color: "white",
-                            font: {
-                                fontWeight: "bold"
-                            },
-                            textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
-                            text: pueblos.data[puebloIndex].nombre,
-                            touchEnabled: false
-                        });
-                        thisView.add(thisLabel);
-                        thisView.addEventListener("click", function(e) {
-                            e.source.objName && Ti.API.info("---> " + e.source.objNombre + " " + e.source.objName + e.source.objIndex + " was clicked!");
-                            controllerPueblo = Alloy.createController("pueblo", {
-                                id: e.source.objIndex,
-                                name: e.source.objNombre,
-                                color: e.source.backgroundColor,
-                                descripcion: e.source.objDescripcion,
-                                gpsLat: e.source.objGPSlat,
-                                gpsLon: e.source.objGPSlon,
-                                parentWindow: Ti.UI.currentWindow
-                            });
-                            var winPueblo = controllerPueblo.getView();
-                            winPueblo.open();
-                        });
-                        if (null != pueblos.data[puebloIndex].dia) {
-                            thisViewShadow.add(image);
-                            thisViewContenedor.add(thisViewShadow);
-                        }
-                        thisViewContenedor.add(thisView);
-                        thisRow.add(thisViewContenedor);
-                    }
-                }
-                cellIndex++;
-                colorSetIndex++;
-                puebloIndex++;
-                colorSetIndex === colorSet.length && (colorSetIndex = 0);
-            }
-            tableData.push(thisRow);
-        }
-        $.tableview.setData(tableData);
-        $.ventanaPrincipal.open();
+    function credencial() {
+        vista = $.vista = Alloy.createController("listaPueblos").getView();
+        $.centroW.add($.vista);
+        $.drawer.toggleLeftWindow();
     }
-    function refrescar() {
-        asignarJson(function() {
-            js = [];
-            $.tableview.setData(js);
-            pintarTabla();
-        });
+    function mapa() {
+        for (var i = $.centroW.children.length - 1; i >= 0; i--) {
+            Ti.API.info($.centroW.children[i].id + " (" + i + ")");
+            Ti.API.info("Se elimina: " + $.centroW.children[i].id + " (" + i + ")");
+            $.centroW.remove($.centroW.children[i]);
+        }
+        $.vista = Alloy.createController("mapa").getView();
+        $.centroW.add($.vista);
+        $.drawer.toggleLeftWindow();
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "index";
@@ -198,39 +47,130 @@ function Controller() {
     }
     var $ = this;
     var exports = {};
-    $.__views.ventanaPrincipal = Ti.UI.createWindow({
-        fullscreen: true,
-        navBarHidden: true,
-        backgroundImage: "/images/default.png",
-        id: "ventanaPrincipal"
+    $.__views.menuIzq = (require("xp.ui").createWindow || Ti.UI.createWindow)({
+        backgroundColor: "white",
+        id: "menuIzq",
+        role: "leftWindow"
     });
-    $.__views.ventanaPrincipal && $.addTopLevelView($.__views.ventanaPrincipal);
-    $.__views.tableview = Ti.UI.createTableView({
-        separatorColor: "transparent",
-        backgroundColor: "transparent",
-        selectedBackgroundColor: "Transparent",
-        backgroundSelectedColor: "Transparent",
-        touchEnabled: true,
-        bubbleParent: false,
-        top: 4,
-        id: "tableview"
+    var __alloyId0 = {};
+    var __alloyId3 = [];
+    var __alloyId4 = {
+        type: "Ti.UI.ImageView",
+        bindId: "pic",
+        properties: {
+            bindId: "pic"
+        }
+    };
+    __alloyId3.push(__alloyId4);
+    var __alloyId5 = {
+        type: "Ti.UI.Label",
+        bindId: "info",
+        properties: {
+            bindId: "info"
+        }
+    };
+    __alloyId3.push(__alloyId5);
+    var __alloyId6 = {
+        type: "Ti.UI.Label",
+        bindId: "es_info",
+        properties: {
+            bindId: "es_info"
+        }
+    };
+    __alloyId3.push(__alloyId6);
+    var __alloyId2 = {
+        properties: {
+            name: "templateMenu"
+        },
+        childTemplates: __alloyId3
+    };
+    __alloyId0["templateMenu"] = __alloyId2;
+    var __alloyId8 = [];
+    $.__views.__alloyId9 = {
+        properties: {
+            itemId: "boton1",
+            id: "__alloyId9"
+        },
+        info: {
+            text: "Andariega"
+        }
+    };
+    __alloyId8.push($.__views.__alloyId9);
+    $.__views.__alloyId10 = {
+        properties: {
+            itemId: "boton2",
+            id: "__alloyId10"
+        },
+        info: {
+            text: "Noticias"
+        }
+    };
+    __alloyId8.push($.__views.__alloyId10);
+    $.__views.__alloyId11 = {
+        properties: {
+            itemId: "boton3",
+            id: "__alloyId11"
+        },
+        info: {
+            text: "Favoritos"
+        }
+    };
+    __alloyId8.push($.__views.__alloyId11);
+    $.__views.menuSection = Ti.UI.createListSection({
+        id: "menuSection"
     });
-    $.__views.ventanaPrincipal.add($.__views.tableview);
+    $.__views.menuSection.items = __alloyId8;
+    var __alloyId12 = [];
+    __alloyId12.push($.__views.menuSection);
+    $.__views.listViewMenu = Ti.UI.createListView({
+        sections: __alloyId12,
+        templates: __alloyId0,
+        id: "listViewMenu",
+        defaultItemTemplate: "templateMenu"
+    });
+    $.__views.menuIzq.add($.__views.listViewMenu);
+    $.__views.centroW = (require("xp.ui").createWindow || Ti.UI.createWindow)({
+        backgroundColor: "white",
+        id: "centroW",
+        role: "centerWindow"
+    });
+    $.__views.drawer = Alloy.createWidget("nl.fokkezb.drawer", "widget", {
+        openDrawerGestureMode: "OPEN_MODE_ALL",
+        closeDrawerGestureMode: "CLOSE_MODE_MARGIN",
+        leftDrawerWidth: 200,
+        rightDrawerWidth: 200,
+        drawerLayout: true,
+        id: "drawer",
+        children: [ $.__views.menuIzq, $.__views.centroW ]
+    });
+    $.__views.drawer && $.addTopLevelView($.__views.drawer);
     exports.destroy = function() {};
     _.extend($, $.__views);
-    var xGrid = 2;
-    var yGrid = 0;
-    var cellWidth = 0;
-    var cellHeight = 0;
-    var ySpacer = 0;
-    var colorSet = [ "#FF0000", "#00FF33", "#00FFDA", "#DEFF00", "#FF00FF", "#0055FF", "#FF9100", "#838383", "#FF9AEF" ];
-    var pueblos = {};
-    asignarJson(function() {
-        pintarTabla();
-    });
-    Ti.App.addEventListener("app:updateTables", function() {
-        Ti.API.info("Se hace clic sobre la fila");
-        refrescar();
+    credencial();
+    var vista = Alloy.createController("listaPueblos").getView();
+    $.drawer.open();
+    $.listViewMenu.addEventListener("itemclick", function(e) {
+        var item = $.menuSection.getItemAt(e.itemIndex);
+        Ti.API.info(item.itemId);
+        switch (e.itemId) {
+          case "boton1":
+            borrarHijos(function() {
+                credencial();
+            });
+            break;
+
+          case "boton2":
+            borrarHijos(function() {
+                mapa();
+            });
+            break;
+
+          case "boton3":
+            break;
+
+          default:
+            alert("ItemId: " + e.itemId + "\nBindId: " + e.bindId + "\nSection Index: " + e.sectionIndex + ", Item Index: " + e.itemIndex);
+        }
     });
     _.extend($, exports);
 }

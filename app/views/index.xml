@@ -1,6 +1,30 @@
 <Alloy>
-	<Window class="container" id="ventanaPrincipal" >
-		<TableView id="tableview"></TableView>
-		
-	</Window>
+	<Widget id="drawer" src="nl.fokkezb.drawer">
+
+		<Window id="menuIzq" module="xp.ui" role="leftWindow">
+			<ListView id="listViewMenu" defaultItemTemplate="templateMenu">
+            <Templates>
+                <ItemTemplate name="templateMenu">
+                    <ImageView bindId="pic" id="icon" />
+                    <Label bindId="info" id="title" />
+                    <Label bindId="es_info" id="subtitle" />
+                </ItemTemplate>
+            </Templates>
+            <ListSection id="menuSection" >
+                <ListItem itemId="boton1" info:text="Andariega"    />
+                <ListItem itemId="boton2" info:text="Mapa"    />
+                <ListItem itemId="boton3" info:text="Caminante"    />
+                <ListItem itemId="boton3" info:text="Ayuda"    />
+            </ListSection>
+        </ListView>
+		</Window>
+		<Window id="centroW" module="xp.ui" role="centerWindow">
+			
+		</Window>
+
+		<!-- <Window module="xp.ui" role="rightWindow">
+		<Label>I am right</Label>
+		</Window>-->
+
+	</Widget>
 </Alloy>

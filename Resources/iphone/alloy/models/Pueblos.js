@@ -11,7 +11,8 @@ exports.definition = {
             dia: "text",
             hora: "text",
             latitudchek: "text",
-            longitudchek: "text"
+            longitudchek: "text",
+            imagen: "text"
         },
         adapter: {
             type: "sql",

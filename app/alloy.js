@@ -15,28 +15,28 @@ if (Ti.App.Properties.getBool('primer', true) == true) {
 
 	db.execute('BEGIN');
 
-	db.execute('CREATE TABLE IF NOT EXISTS pueblos (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT, descripcion TEXT, latitud TEXT, longitud TEXT, dia TEXT, hora TEXT, latitudchek TEXT, longitudchek TEXT)');
-	db.execute('INSERT INTO pueblos (nombre,descripcion,latitud,longitud) VALUES (?,?,?,?)', "ÁVILA", "descripcion", "40.6552873", "-4.7028309");
-	db.execute('INSERT INTO pueblos (nombre,descripcion,latitud,longitud) VALUES (?,?,?,?)', "NARRILLOS DE SAN LEONARDO", "descripcion", "40.6961216", "-4.7246942");
-	db.execute('INSERT INTO pueblos (nombre,descripcion,latitud,longitud) VALUES (?,?,?,?)', "CARDEÑOSA", "descripcion", "40.7422301", "-4.7436752");
-	db.execute('INSERT INTO pueblos (nombre,descripcion,latitud,longitud) VALUES (?,?,?,?)', "PEÑALBA DE ÁVILA", "descripcion", "40.7717097", "-4.7464242");
-	db.execute('INSERT INTO pueblos (nombre,descripcion,latitud,longitud) VALUES (?,?,?,?)', "GOTARRENDURA", "descripcion", "40.8255596", "-4.7402645");
-	db.execute('INSERT INTO pueblos (nombre,descripcion,latitud,longitud) VALUES (?,?,?,?)', "EL OSO", "descripcion", "40.8401981", "-4.7697875");
-	db.execute('INSERT INTO pueblos (nombre,descripcion,latitud,longitud) VALUES (?,?,?,?)', "PAPATRIGO", "descripcion", "40.8675266", "-4.8330634");
-	db.execute('INSERT INTO pueblos (nombre,descripcion,latitud,longitud) VALUES (?,?,?,?)', "NARROS DE SALDUEÑA", "descripcion", "40.8732141", "-4.8694079");
-	db.execute('INSERT INTO pueblos (nombre,descripcion,latitud,longitud) VALUES (?,?,?,?)', "COLLADO DE CONTRERAS", "descripcion", "40.8869863", "-4.9309939");
-	db.execute('INSERT INTO pueblos (nombre,descripcion,latitud,longitud) VALUES (?,?,?,?)', "FONTIVEROS", "descripcion", "40.9258861", "-4.9563748");
-	db.execute('INSERT INTO pueblos (nombre,descripcion,latitud,longitud) VALUES (?,?,?,?)', "RIVILLA DE BARAJAS", "descripcion", "40.9023417", "-4.9871718");
-	db.execute('INSERT INTO pueblos (nombre,descripcion,latitud,longitud) VALUES (?,?,?,?)', "NARROS DEL CASTILLO", "descripcion", "40.857464", "-5.063238");
-	db.execute('INSERT INTO pueblos (nombre,descripcion,latitud,longitud) VALUES (?,?,?,?)', "CONVENTO DE DURUELO (BLASCOMILLÁN)", "descripcion", "40.8341393", "-5.1294729");
-	db.execute('INSERT INTO pueblos (nombre,descripcion,latitud,longitud) VALUES (?,?,?,?)', "MANCERA DE ABAJO", "descripcion", "40.8394414", "-5.198222");
-	db.execute('INSERT INTO pueblos (nombre,descripcion,latitud,longitud) VALUES (?,?,?,?)', "MACOTERA", "descripcion", "40.8306587", "-5.2868701");
-	db.execute('INSERT INTO pueblos (nombre,descripcion,latitud,longitud) VALUES (?,?,?,?)', "TORDILLOS", "descripcion", "40.8520586", "-5.3542268");
-	db.execute('INSERT INTO pueblos (nombre,descripcion,latitud,longitud) VALUES (?,?,?,?)', "LA LURDA", "descripcion", "40.8487924", "-5.4203036");
-	db.execute('INSERT INTO pueblos (nombre,descripcion,latitud,longitud) VALUES (?,?,?,?)', "GARCIHERNANDEZ", "descripcion", "40.8487924", "-5.4203036");
-	db.execute('INSERT INTO pueblos (nombre,descripcion,latitud,longitud) VALUES (?,?,?,?)', "ALBA DE TORMES", "descripcion", "40.8487924", "-5.4203036");
+	db.execute('CREATE TABLE IF NOT EXISTS pueblos (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT, descripcion TEXT, latitud TEXT, longitud TEXT, dia TEXT, hora TEXT, latitudchek TEXT, longitudchek TEXT, imagen TEXT)');
+	db.execute('INSERT INTO pueblos (nombre,descripcion,latitud,longitud,imagen) VALUES (?,?,?,?,?)', "ÁVILA", "descripcion", "40.6552873", "-4.7028309", "avila.jpg");
+	db.execute('INSERT INTO pueblos (nombre,descripcion,latitud,longitud,imagen) VALUES (?,?,?,?,?)', "NARRILLOS DE SAN LEONARDO", "descripcion", "40.6961216", "-4.7246942", "narrillos.jpg");
+	db.execute('INSERT INTO pueblos (nombre,descripcion,latitud,longitud,imagen) VALUES (?,?,?,?,?)', "CARDEÑOSA", "descripcion", "40.7422301", "-4.7436752", "cardenosa.jpg");
+	db.execute('INSERT INTO pueblos (nombre,descripcion,latitud,longitud,imagen) VALUES (?,?,?,?,?)', "PEÑALBA DE ÁVILA", "descripcion", "40.7717097", "-4.7464242", "penalba.jpg");
+	db.execute('INSERT INTO pueblos (nombre,descripcion,latitud,longitud,imagen) VALUES (?,?,?,?,?)', "GOTARRENDURA", "descripcion", "40.8255596", "-4.7402645", "gotarrendura.jpg");
+	db.execute('INSERT INTO pueblos (nombre,descripcion,latitud,longitud,imagen) VALUES (?,?,?,?,?)', "EL OSO", "descripcion", "40.8401981", "-4.7697875", "el_oso.jpg");
+	db.execute('INSERT INTO pueblos (nombre,descripcion,latitud,longitud,imagen) VALUES (?,?,?,?,?)', "PAPATRIGO", "descripcion", "40.8675266", "-4.8330634", "papatrigo.jpg");
+	db.execute('INSERT INTO pueblos (nombre,descripcion,latitud,longitud,imagen) VALUES (?,?,?,?,?)', "NARROS DE SALDUEÑA", "descripcion", "40.8732141", "-4.8694079", "narros_salduena.jpg");
+	db.execute('INSERT INTO pueblos (nombre,descripcion,latitud,longitud,imagen) VALUES (?,?,?,?,?)', "COLLADO DE CONTRERAS", "descripcion", "40.8869863", "-4.9309939", "revilla.jpg");
+	db.execute('INSERT INTO pueblos (nombre,descripcion,latitud,longitud,imagen) VALUES (?,?,?,?,?)', "FONTIVEROS", "descripcion", "40.9258861", "-4.9563748", "fontiveros.jpg");
+	db.execute('INSERT INTO pueblos (nombre,descripcion,latitud,longitud,imagen) VALUES (?,?,?,?,?)', "RIVILLA DE BARAJAS", "descripcion", "40.9023417", "-4.9871718", "revilla.jpg");
+	db.execute('INSERT INTO pueblos (nombre,descripcion,latitud,longitud,imagen) VALUES (?,?,?,?,?)', "NARROS DEL CASTILLO", "descripcion", "40.857464", "-5063238", "narros_del_castillo.jpg");
+	db.execute('INSERT INTO pueblos (nombre,descripcion,latitud,longitud,imagen) VALUES (?,?,?,?,?)', "CONVENTO DE DURUELO (BLASCOMILLÁN)", "descripcion", "40.8341393", "-51294729", "duruelo.jpg");
+	db.execute('INSERT INTO pueblos (nombre,descripcion,latitud,longitud,imagen) VALUES (?,?,?,?,?)', "MANCERA DE ABAJO", "descripcion", "40.8394414", "-5198222", "macera.jpg");
+	db.execute('INSERT INTO pueblos (nombre,descripcion,latitud,longitud,imagen) VALUES (?,?,?,?,?)', "MACOTERA", "descripcion", "40.8306587", "-52868701", "macotera.jpg");
+	db.execute('INSERT INTO pueblos (nombre,descripcion,latitud,longitud,imagen) VALUES (?,?,?,?,?)', "TORDILLOS", "descripcion", "40.8520586", "-53542268", "tordillos.jpg");
+	db.execute('INSERT INTO pueblos (nombre,descripcion,latitud,longitud,imagen) VALUES (?,?,?,?,?)', "LA LURDA", "descripcion", "40.8487924", "-54203036", "garcihernandez.jpg");
+	db.execute('INSERT INTO pueblos (nombre,descripcion,latitud,longitud,imagen) VALUES (?,?,?,?,?)', "GARCIHERNANDEZ", "descripcion", "40.8487924", "-54203036", "garcihernandez.jpg");
+	db.execute('INSERT INTO pueblos (nombre,descripcion,latitud,longitud,imagen) VALUES (?,?,?,?,?)', "ALBA DE TORMES", "descripcion", "40.8487924", "-54203036", "alba.jpg");
 	db.execute('COMMIT');
 
 	Ti.App.Properties.setBool('primer', false);
 }
-db.close(); 
+db.close();

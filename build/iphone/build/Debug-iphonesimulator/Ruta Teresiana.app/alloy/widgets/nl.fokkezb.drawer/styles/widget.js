@@ -1,0 +1,1 @@
+/Users/ivan/Documents/Appcelerator_Studio_Workspace/Ruta Teresiana/Resources/iphone/alloy/widgets/nl.fokkezb.drawer/styles/widget.js

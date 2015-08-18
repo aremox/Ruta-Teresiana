@@ -13,17 +13,20 @@
 	backgroundColor: 'transparent',
 	color: 'white'
 },
-"#imagenPueblo": {
-	backgroundColor: "white",
+"#ViewImagenPueblo": {
+	backgroundColor: "black",
 	color: 'white',
 	height: "30%",
-	width: "100%"
+	width: "100%",
+	zIndex: "-2"
 },
 "#vtextoPueblo": {
+	top: 0,
 	backgroundColor: "white",
 	width: "100%",
 	color: "black",
-	zIndex: "-1"
+	zIndex: "-1",
+	layout: 'vertical'
 },
 "#textoPueblo":{
 	color: '#232323',
@@ -33,4 +36,26 @@
 		fontSize: '19dp',
 		fontFamily: 'Arial'
 	}
+},
+"#imagenPueblo": {
+	width: "100%",
+	zIndex: "-1"
+},
+"#ViewDatosCheck":{
+	layout: 'vertical',
+	color: "white",
+	top: "33%"
+},
+".datosCheck" :{
+	color: "white",
+	shadowColor: '#66333333',
+	shadowRadius: 3,
+	shadowOffset: {
+		x: 2,
+		y: 2
+	}
+},
+"#imagenPuebloCheck": {
+	opacity: 0.5,
+	backgroundColor: 'transparent'
 }

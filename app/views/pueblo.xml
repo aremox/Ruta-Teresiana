@@ -1,25 +1,39 @@
 <Alloy>
-	<Window class="container" id="winPueblo">
+	<Window class="container" id="winPueblo" onSwipe="swipe" onTouchstart="swipe2" onTouchend="swipe3" onTouchmove="swipe4">
 		<View class="container" id="puebloContenedor">
-		<View id="actionBar" class="barrasDeAccion">
-			<ImageView id="botonMenu" onClick="cerrar" />
-			<Label id="textoMenu" />
-			<ImageView id="botonFavorito"  />
-			<ImageView id="botonRecargar"  />
-		</View>
-		<View class="barrasDeAccionSombra" />
-		<Label id="imagenPueblo"/>
-		<View id="actionBotones" class="barrasDeAccion">
-			<View class="bloque-1-2">
-			<ImageView id="chequearPueblo" class="chequear" onClick="localizar" />
+			<View id="actionBar" class="barrasDeAccion">
+				<ImageView id="botonMenu" onClick="cerrar" />
+				<Label id="textoMenu" />
+				<ImageView id="botonFavorito"  />
+				<ImageView id="botonRecargar"  />
 			</View>
-			<View class="bloque-1-2">
-			<ImageView id="compartirPueblo" class="compartir"  />
+			<View class="barrasDeAccionSombra" />
+			<View id="ViewImagenPueblo" >
+				<ImageView id="imagenPueblo"/>
+				<ImageView id="imagenPuebloCheck"/>
+				<View id="ViewDatosCheck" >
+				<Label id="diaCheck" class="datosCheck" />
+				<Label id="horaCheck" class="datosCheck"/>
+				<Label id="latitudchek" class="datosCheck" />
+				<Label id="longitudchek" class="datosCheck"/>
+				</View>
 			</View>
+			<View id="actionBotones" class="barrasDeAccion">
+				<View class="bloque-1-2">
+					<ImageView id="chequearPueblo" class="chequear" onClick="localizar" />
+				</View>
+				<View class="bloque-1-2">
+					<ImageView id="compartirPueblo" class="compartir"  />
+				</View>
+			</View>
+			<View class="barrasDeAccionSombra" />
+			<ScrollView  id="vtextoPueblo" showVerticalScrollIndicator="true" >
+				<Label id="textoPueblo"/>
+				<Label id="textoPueblo2"/>
+				<Label id="textoPueblo3"/>
+				<Label id="textoPueblo4"/>
+			</ScrollView>
+
 		</View>
-		<View class="barrasDeAccionSombra" />
-		<ScrollView  id="vtextoPueblo" showVerticalScrollIndicator="true"><Label id="textoPueblo"/></ScrollView>
-		
-	</View>
 	</Window>
 </Alloy>
