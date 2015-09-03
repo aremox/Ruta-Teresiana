@@ -1,0 +1,1 @@
+/Users/ivan/Documents/Appcelerator_Studio_Workspace/Ruta Teresiana/Resources/android/alloy/styles/mapa.js

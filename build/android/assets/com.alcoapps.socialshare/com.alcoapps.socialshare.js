@@ -1,0 +1,1 @@
+/Users/ivan/Documents/Appcelerator_Studio_Workspace/Ruta Teresiana/Resources/android/com.alcoapps.socialshare/com.alcoapps.socialshare.js

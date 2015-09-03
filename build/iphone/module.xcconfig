@@ -1,4 +1,5 @@
 // this is a generated file - DO NOT EDIT
 
 DK_NAPP_DRAWER_OTHER_LDFLAGS=$(inherited) -framework QuartzCore
-OTHER_LDFLAGS=$(inherited) $(DK_NAPP_DRAWER_OTHER_LDFLAGS) 
+DK_NAPP_SOCIAL_OTHER_LDFLAGS=$(inherited) -weak_framework Social -weak_framework Accounts
+OTHER_LDFLAGS=$(inherited) $(DK_NAPP_DRAWER_OTHER_LDFLAGS) $(DK_NAPP_SOCIAL_OTHER_LDFLAGS) 

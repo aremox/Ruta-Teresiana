@@ -128,6 +128,14 @@ function Controller() {
         diferencia = -1 * (yInicio - e.y);
         $.textoPueblo4.setText("Diferencia e: " + diferencia + " " + $.vtextoPueblo.getTop());
     }
+    function shareTextWidget() {
+        var socialWidget = Alloy.createWidget("com.alcoapps.socialshare");
+        socialWidget.share({
+            status: "This is the status to share",
+            androidDialogTitle: "Caption!!!",
+            view: $.label3
+        });
+    }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "pueblo";
     this.args = arguments[0] || {};
@@ -321,6 +329,7 @@ function Controller() {
         id: "compartirPueblo"
     });
     $.__views.__alloyId17.add($.__views.compartirPueblo);
+    shareTextWidget ? $.__views.compartirPueblo.addEventListener("click", shareTextWidget) : __defers["$.__views.compartirPueblo!click!shareTextWidget"] = true;
     $.__views.__alloyId18 = Ti.UI.createView({
         height: "1dp",
         backgroundColor: "#33000000",
@@ -385,6 +394,7 @@ function Controller() {
     __defers["$.__views.winPueblo!touchmove!swipe4"] && $.__views.winPueblo.addEventListener("touchmove", swipe4);
     __defers["$.__views.botonMenu!click!cerrar"] && $.__views.botonMenu.addEventListener("click", cerrar);
     __defers["$.__views.chequearPueblo!click!localizar"] && $.__views.chequearPueblo.addEventListener("click", localizar);
+    __defers["$.__views.compartirPueblo!click!shareTextWidget"] && $.__views.compartirPueblo.addEventListener("click", shareTextWidget);
     _.extend($, exports);
 }
 

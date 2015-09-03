@@ -1,1 +1,1 @@
-module.exports={"dependencies":{"nl.fokkezb.drawer":"1.1.2"}};
+module.exports={"dependencies":{"nl.fokkezb.drawer":"1.1.2","com.alcoapps.socialshare":"1.0"}};

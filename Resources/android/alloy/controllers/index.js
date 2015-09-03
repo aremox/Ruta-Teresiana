@@ -102,7 +102,7 @@ function Controller() {
             id: "__alloyId10"
         },
         info: {
-            text: "Noticias"
+            text: "Mapa"
         }
     };
     __alloyId8.push($.__views.__alloyId10);
@@ -112,18 +112,28 @@ function Controller() {
             id: "__alloyId11"
         },
         info: {
-            text: "Favoritos"
+            text: "Caminante"
         }
     };
     __alloyId8.push($.__views.__alloyId11);
+    $.__views.__alloyId12 = {
+        properties: {
+            itemId: "boton3",
+            id: "__alloyId12"
+        },
+        info: {
+            text: "Ayuda"
+        }
+    };
+    __alloyId8.push($.__views.__alloyId12);
     $.__views.menuSection = Ti.UI.createListSection({
         id: "menuSection"
     });
     $.__views.menuSection.items = __alloyId8;
-    var __alloyId12 = [];
-    __alloyId12.push($.__views.menuSection);
+    var __alloyId13 = [];
+    __alloyId13.push($.__views.menuSection);
     $.__views.listViewMenu = Ti.UI.createListView({
-        sections: __alloyId12,
+        sections: __alloyId13,
         templates: __alloyId0,
         id: "listViewMenu",
         defaultItemTemplate: "templateMenu"
@@ -154,15 +164,11 @@ function Controller() {
         Ti.API.info(item.itemId);
         switch (e.itemId) {
           case "boton1":
-            borrarHijos(function() {
-                credencial();
-            });
+            borrarHijos(credencial);
             break;
 
           case "boton2":
-            borrarHijos(function() {
-                mapa();
-            });
+            borrarHijos(mapa);
             break;
 
           case "boton3":

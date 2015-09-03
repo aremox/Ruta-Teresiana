@@ -178,3 +178,12 @@ function swipe4(e) {
 	 }*/
 }
 
+function shareTextWidget(e){
+	// share text status
+	var socialWidget=Alloy.createWidget('com.alcoapps.socialshare');
+	socialWidget.share({
+		status 				: 'This is the status to share',
+		androidDialogTitle 	: 'Caption!!!',
+		view 					: $.label3
+	});
+}

@@ -1,0 +1,1 @@
+/Users/ivan/Documents/Appcelerator_Studio_Workspace/Ruta Teresiana/Resources/iphone/alloy/widgets/com.alcoapps.socialshare/controllers/widget.js

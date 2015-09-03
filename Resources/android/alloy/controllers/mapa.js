@@ -30,11 +30,11 @@ function Controller() {
         id: "mapa"
     });
     $.__views.mapa && $.addTopLevelView($.__views.mapa);
-    $.__views.__alloyId13 = Ti.UI.createLabel({
+    $.__views.__alloyId14 = Ti.UI.createLabel({
         text: "Mapa",
-        id: "__alloyId13"
+        id: "__alloyId14"
     });
-    $.__views.mapa.add($.__views.__alloyId13);
+    $.__views.mapa.add($.__views.__alloyId14);
     exports.destroy = function() {};
     _.extend($, $.__views);
     arguments[0] || {};

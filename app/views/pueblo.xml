@@ -23,7 +23,7 @@
 					<ImageView id="chequearPueblo" class="chequear" onClick="localizar" />
 				</View>
 				<View class="bloque-1-2">
-					<ImageView id="compartirPueblo" class="compartir"  />
+					<ImageView id="compartirPueblo" class="compartir" onClick="shareTextWidget" />
 				</View>
 			</View>
 			<View class="barrasDeAccionSombra" />

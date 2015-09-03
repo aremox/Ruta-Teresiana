@@ -129,6 +129,14 @@ function Controller() {
         diferencia = -1 * (yInicio - e.y);
         $.textoPueblo4.setText("Diferencia e: " + diferencia + " " + $.vtextoPueblo.getTop());
     }
+    function shareTextWidget() {
+        var socialWidget = Alloy.createWidget("com.alcoapps.socialshare");
+        socialWidget.share({
+            status: "This is the status to share",
+            androidDialogTitle: "Caption!!!",
+            view: $.label3
+        });
+    }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "pueblo";
     this.args = arguments[0] || {};
@@ -209,12 +217,12 @@ function Controller() {
         id: "botonRecargar"
     });
     $.__views.actionBar.add($.__views.botonRecargar);
-    $.__views.__alloyId14 = Ti.UI.createView({
+    $.__views.__alloyId15 = Ti.UI.createView({
         height: "1dp",
         backgroundColor: "#33000000",
-        id: "__alloyId14"
+        id: "__alloyId15"
     });
-    $.__views.puebloContenedor.add($.__views.__alloyId14);
+    $.__views.puebloContenedor.add($.__views.__alloyId15);
     $.__views.ViewImagenPueblo = Ti.UI.createView({
         backgroundColor: "black",
         color: "white",
@@ -295,37 +303,38 @@ function Controller() {
         id: "actionBotones"
     });
     $.__views.puebloContenedor.add($.__views.actionBotones);
-    $.__views.__alloyId15 = Ti.UI.createView({
-        textAlign: "center",
-        width: "50%",
-        id: "__alloyId15"
-    });
-    $.__views.actionBotones.add($.__views.__alloyId15);
-    $.__views.chequearPueblo = Ti.UI.createImageView({
-        image: "/material/ic_radio_button_off_white_48dp.png",
-        height: "44dp",
-        id: "chequearPueblo"
-    });
-    $.__views.__alloyId15.add($.__views.chequearPueblo);
-    localizar ? $.__views.chequearPueblo.addEventListener("click", localizar) : __defers["$.__views.chequearPueblo!click!localizar"] = true;
     $.__views.__alloyId16 = Ti.UI.createView({
         textAlign: "center",
         width: "50%",
         id: "__alloyId16"
     });
     $.__views.actionBotones.add($.__views.__alloyId16);
+    $.__views.chequearPueblo = Ti.UI.createImageView({
+        image: "/material/ic_radio_button_off_white_48dp.png",
+        height: "44dp",
+        id: "chequearPueblo"
+    });
+    $.__views.__alloyId16.add($.__views.chequearPueblo);
+    localizar ? $.__views.chequearPueblo.addEventListener("click", localizar) : __defers["$.__views.chequearPueblo!click!localizar"] = true;
+    $.__views.__alloyId17 = Ti.UI.createView({
+        textAlign: "center",
+        width: "50%",
+        id: "__alloyId17"
+    });
+    $.__views.actionBotones.add($.__views.__alloyId17);
     $.__views.compartirPueblo = Ti.UI.createImageView({
         image: "/material/ic_share_white_48dp.png",
         height: "44dp",
         id: "compartirPueblo"
     });
-    $.__views.__alloyId16.add($.__views.compartirPueblo);
-    $.__views.__alloyId17 = Ti.UI.createView({
+    $.__views.__alloyId17.add($.__views.compartirPueblo);
+    shareTextWidget ? $.__views.compartirPueblo.addEventListener("click", shareTextWidget) : __defers["$.__views.compartirPueblo!click!shareTextWidget"] = true;
+    $.__views.__alloyId18 = Ti.UI.createView({
         height: "1dp",
         backgroundColor: "#33000000",
-        id: "__alloyId17"
+        id: "__alloyId18"
     });
-    $.__views.puebloContenedor.add($.__views.__alloyId17);
+    $.__views.puebloContenedor.add($.__views.__alloyId18);
     $.__views.vtextoPueblo = Ti.UI.createScrollView({
         top: 0,
         backgroundColor: "white",
@@ -384,6 +393,7 @@ function Controller() {
     __defers["$.__views.winPueblo!touchmove!swipe4"] && $.__views.winPueblo.addEventListener("touchmove", swipe4);
     __defers["$.__views.botonMenu!click!cerrar"] && $.__views.botonMenu.addEventListener("click", cerrar);
     __defers["$.__views.chequearPueblo!click!localizar"] && $.__views.chequearPueblo.addEventListener("click", localizar);
+    __defers["$.__views.compartirPueblo!click!shareTextWidget"] && $.__views.compartirPueblo.addEventListener("click", shareTextWidget);
     _.extend($, exports);
 }
 
